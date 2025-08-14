@@ -26,7 +26,7 @@ func Help(){
 
 
 /*Реализация команды add. Добовляет задачу в лист.
-Принимает в себя заголовок задачи, указатель на список дел и опиисание*/
+Принимает в себя заголовок задачи, указатель на список дел и описание*/
 
 func Add(title, text string, list *[]ToDoList){
 	*list = append(*list, ToDoList{
@@ -39,6 +39,6 @@ func Add(title, text string, list *[]ToDoList){
 
 func List(list []ToDoList){
 	for i, v := range list{
-		fmt.Println(strconv.Itoa(i+1) + ".         ", v)
+		fmt.Println(strconv.Itoa(i+1) + ".", v)
 	}
 }
