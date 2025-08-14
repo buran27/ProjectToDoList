@@ -1,22 +1,44 @@
 package commands
 
 import (
-	"fmt"
-	"strconv"
 	"time"
+
+	"github.com/k0kubun/pp"
 )
 
+
+
+
+type Do struct{
+	title string
+	text string
+	isDone bool
+	startTime time.Time
+	endTime *time.Time
+
+}
+
+func NewDo(title, text string) *Do{
+	return &Do{
+		title: title,
+		text: text,
+		isDone: false,
+		startTime: time.Now(),
+		endTime: nil,
+	}
+}
+
+
 type ToDoList struct{
-	Title string
-	Text string
-	Status string
-	Time time.Time
+	tasks map[string]Do
 }
 
 
 
-func NewToDoList() *[]ToDoList{
-	return &[]ToDoList{}
+func NewToDoList() *ToDoList{
+	return &ToDoList{
+		tasks: make(map[string]Do),
+	}
 }
 /*Реализация команды help. Команда позволяет узнать все доступные команды*/
 func Help(){
@@ -28,17 +50,11 @@ func Help(){
 /*Реализация команды add. Добовляет задачу в лист.
 Принимает в себя заголовок задачи, указатель на список дел и описание*/
 
-func Add(title, text string, list *[]ToDoList){
-	*list = append(*list, ToDoList{
-		Title: title,
-		Text: text,
-		Status: "Не выполнено",
-		Time: time.Now(),
-	})
+func (l *ToDoList) Add(title, text string){
+	task := NewDo(title, text)
+	l.tasks[title] = *task
 }
 
-func List(list []ToDoList){
-	for i, v := range list{
-		fmt.Println(strconv.Itoa(i+1) + ".", v)
-	}
+func (l *ToDoList) List(){
+	pp.Println(l.tasks)
 }
