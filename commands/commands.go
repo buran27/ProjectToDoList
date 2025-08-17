@@ -13,7 +13,7 @@ type Do struct{
 	title string
 	text string
 	isDone bool
-	startTime time.Time
+	StartTime time.Time
 	endTime *time.Time
 
 }
@@ -23,7 +23,7 @@ func NewDo(title, text string) *Do{
 		title: title,
 		text: text,
 		isDone: false,
-		startTime: time.Now(),
+		StartTime: time.Now(),
 		endTime: nil,
 	}
 }
@@ -57,4 +57,12 @@ func (l *ToDoList) Add(title, text string){
 
 func (l *ToDoList) List(){
 	pp.Println(l.tasks)
+}
+
+
+func (d *Do) Done(){
+	doneTime := time.Now()
+	d.isDone = true
+	d.endTime = &doneTime
+
 }
